@@ -11,7 +11,6 @@ namespace MintPlayer.SlingBot.Services;
 internal class WebhookProxy : IHostedService
 {
     private readonly IConfiguration configuration;
-    private readonly IServiceProvider serviceProvider;
     private readonly IServiceProvider services;
     public WebhookProxy(IConfiguration configuration, IServiceProvider services)
     {
@@ -28,39 +27,42 @@ internal class WebhookProxy : IHostedService
         if (!string.IsNullOrEmpty(webhookProxyUrl))
         {
             var ws = new ClientWebSocket();
-            ws.Options.KeepAliveInterval = TimeSpan.FromSeconds(1);
+            ws.Options.KeepAliveInterval = TimeSpan.FromSeconds(900);
             ws.Options.AddSubProtocol("ws");
             ws.Options.AddSubProtocol("wss");
-            await ws.ConnectAsync(new Uri(webhookProxyUrl), cancellationToken);
+            var baseUri = new Uri(webhookProxyUrl);
+            await ws.ConnectAsync(new Uri(baseUri, "ws"), cancellationToken);
 
             await Task.Run(async () =>
             {
-                var handshake = new Handshake
-                {
-                    Username = username,
-                    Password = password,
-                };
-                await ws.WriteObject(handshake);
+                //var handshake = new Handshake
+                //{
+                //    Username = username,
+                //    Password = password,
+                //};
+                //await ws.WriteObject(handshake);
 
-                var buffer = new byte[512];
+                //var buffer = new byte[512];
                 while (true)
                 {
-                    var message = await ws.ReadMessage();
+                    var data = await ws.ReadObject<Handshake>();
 
-                    var split = message.Split("\r\n\r\n");
-                    var headers = split[0].Split("\r\n")
-                        .Select(h => h.Split(':'))
-                        .ToDictionary(h => h[0].Trim(), h => new Microsoft.Extensions.Primitives.StringValues(h[1].Trim()));
-                    var body = split[1];
+                    //var message = await ws.ReadMessage();
+
+                    //var split = message.Split("\r\n\r\n");
+                    //var headers = split[0].Split("\r\n")
+                    //    .Select(h => h.Split(':'))
+                    //    .ToDictionary(h => h[0].Trim(), h => new Microsoft.Extensions.Primitives.StringValues(h[1].Trim()));
+                    //var body = split[1];
 
 
-                    using var scope = services.CreateScope();
-                    var processor = scope.ServiceProvider.GetRequiredService<WebhookEventProcessor>();
+                    //using var scope = services.CreateScope();
+                    //var processor = scope.ServiceProvider.GetRequiredService<WebhookEventProcessor>();
 
-                    await processor.ProcessWebhookAsync(
-                        headers,
-                        body
-                    );
+                    //await processor.ProcessWebhookAsync(
+                    //    headers,
+                    //    body
+                    //);
 
                     if (cancellationToken.IsCancellationRequested) break;
                 }

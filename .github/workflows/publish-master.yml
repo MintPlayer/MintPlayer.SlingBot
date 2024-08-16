@@ -1,0 +1,100 @@
+name: dotnet-publish
+
+on:
+  push:
+    branches:
+      - master
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.head_ref || github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+  packages: write 
+
+jobs:
+  build:
+
+    name: dotnet-publish
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      id-token: write
+      packages: write
+      attestations: write
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v4
+      
+    - name: Setup .NET Core
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: 8.0.202
+        # Authenticates packages to push to GPR
+        source-url: https://nuget.pkg.github.com/${{ github.repository_owner }}/index.json
+      env:
+        NUGET_AUTH_TOKEN: '%NUGET_AUTH_TOKEN%'
+    
+    - name: Install dependencies
+      run: dotnet restore
+      env:
+        NUGET_AUTH_TOKEN: ${{ github.token }}
+        
+    - name: Build
+      run: dotnet build --configuration Release --no-restore
+      
+    - name: Test
+      run: dotnet test --no-restore --verbosity normal
+      
+    - name: Pack
+      run: dotnet pack --no-build --configuration Release
+      
+    - name: PushNuget
+      run: dotnet nuget push **/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.PUBLISH_TO_NUGET_ORG }} --skip-duplicate
+      
+    - name: PushGithub
+      run: dotnet nuget push **/*.nupkg --no-symbols --skip-duplicate
+      env:
+        NUGET_AUTH_TOKEN: ${{ github.token }}
+        
+    # Publish to GitHub Container Registry
+    - name: Authenticate with GHCR
+      uses: docker/login-action@v3
+      with:
+        registry: ghcr.io
+        username: ${{ github.actor }}
+        password: ${{ github.token }}
+
+    - name: Extract tags/labels
+      id: meta-ghcr
+      uses: docker/metadata-action@v5
+      with:
+        github-token: ${{ github.token }}
+        images: |
+          ghcr.io/${{ github.repository }}.Demo
+
+    - name: Publish to Github Container Registry
+      id: push-ghcr
+      uses: docker/build-push-action@v6
+      with:
+        context: .
+        file: ./MintPlayer.SlingBot.Demo/Dockerfile
+        push: true
+        tags: ${{ steps.meta-ghcr.outputs.tags }}
+        labels: ${{ steps.meta-ghcr.outputs.labels }}
+
+    - name: Generate artifact attestation
+      uses: actions/attest-build-provenance@v1
+      with:
+        subject-name: ghcr.io/${{ github.repository }}.Demo
+        subject-digest: ${{ steps.push-ghcr.outputs.digest }}
+        push-to-registry: true
+
+    # - name: Trigger deploy hook
+    #   uses: fjogeleit/http-request-action@v1
+    #   with:
+    #     url: ${{ secrets.SLIPLANE_DEPLOY_HOOK }}
+    #     method: GET

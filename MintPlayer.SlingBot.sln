@@ -3,9 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35027.167
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.SlingBot.Demo", "MintPlayer.SlingBot.Demo\MintPlayer.SlingBot.Demo.csproj", "{B2B72390-00DC-4F54-BFA5-C9B41F7D306B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.SlingBot.Demo", "MintPlayer.SlingBot.Demo\MintPlayer.SlingBot.Demo.csproj", "{B2B72390-00DC-4F54-BFA5-C9B41F7D306B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.SlingBot", "MintPlayer.SlingBot\MintPlayer.SlingBot.csproj", "{C41B7DBA-AAC8-4662-B953-54EBED0CBC00}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.SlingBot", "MintPlayer.SlingBot\MintPlayer.SlingBot.csproj", "{C41B7DBA-AAC8-4662-B953-54EBED0CBC00}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.SlingBot.Abstractions", "MintPlayer.SlingBot.Abstractions\MintPlayer.SlingBot.Abstractions.csproj", "{61B13378-B4CA-4B4D-A0B6-2573A6F0F857}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +23,10 @@ Global
 		{C41B7DBA-AAC8-4662-B953-54EBED0CBC00}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C41B7DBA-AAC8-4662-B953-54EBED0CBC00}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C41B7DBA-AAC8-4662-B953-54EBED0CBC00}.Release|Any CPU.Build.0 = Release|Any CPU
+		{61B13378-B4CA-4B4D-A0B6-2573A6F0F857}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{61B13378-B4CA-4B4D-A0B6-2573A6F0F857}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{61B13378-B4CA-4B4D-A0B6-2573A6F0F857}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{61B13378-B4CA-4B4D-A0B6-2573A6F0F857}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35027.167
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.SlingBot.Demo", "MintPlayer.SlingBot.Demo\MintPlayer.SlingBot.Demo.csproj", "{B2B72390-00DC-4F54-BFA5-C9B41F7D306B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B2B72390-00DC-4F54-BFA5-C9B41F7D306B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B2B72390-00DC-4F54-BFA5-C9B41F7D306B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B2B72390-00DC-4F54-BFA5-C9B41F7D306B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B2B72390-00DC-4F54-BFA5-C9B41F7D306B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {B0E04887-2270-4BFA-B131-240A7AA05ED5}
+	EndGlobalSection
+EndGlobal

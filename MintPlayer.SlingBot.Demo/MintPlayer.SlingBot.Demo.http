@@ -1,0 +1,6 @@
+@MintPlayer.SlingBot.Demo_HostAddress = http://localhost:5207
+
+GET {{MintPlayer.SlingBot.Demo_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###

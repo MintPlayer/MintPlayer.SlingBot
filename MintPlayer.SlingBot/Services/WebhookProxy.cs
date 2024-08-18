@@ -42,7 +42,6 @@ internal class WebhookProxy : IHostedService
                 //};
                 //await ws.WriteObject(handshake);
 
-                //var buffer = new byte[512];
                 while (true)
                 {
                     var data = await ws.ReadObject<Handshake>();

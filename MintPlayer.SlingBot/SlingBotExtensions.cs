@@ -52,24 +52,30 @@ public static class SlingBotExtensions
                     return;
                 }
 
-                //var proxyUser = app.Configuration["WebhookProxy:Username"];
-                //var proxyPassword = app.Configuration["WebhookProxy:Password"];
+                var proxyUser = app.Configuration["WebhookProxy:Username"];
+                var proxyPassword = app.Configuration["WebhookProxy:Password"];
 
                 using var ws = await context.WebSockets.AcceptWebSocketAsync("wss");
+
+                //while (true)
+                //{
+                //    await ws.WriteObject(new Handshake { Username = "Pieterjan", Password = "Pass" });
+                //    await Task.Delay(1000);
+                //}
+
+                //Receive handshake
+                var handshake = await ws.ReadObject<Handshake>();
+                if (handshake == null || handshake.Username != proxyUser || handshake.Password != proxyPassword)
+                {
+                    await ws.CloseAsync(WebSocketCloseStatus.InternalServerError, "Wrong credentials", CancellationToken.None);
+                    return;
+                }
 
                 while (true)
                 {
                     await ws.WriteObject(new Handshake { Username = "Pieterjan", Password = "Pass" });
                     await Task.Delay(1000);
                 }
-
-                //// Receive handshake
-                //var handshake = await ws.ReadObject<Handshake>();
-                ////if (handshake.Username != proxyUser || handshake.Password != proxyPassword)
-                ////{
-                ////    await ws.CloseAsync(WebSocketCloseStatus.InternalServerError, "Wrong credentials", CancellationToken.None);
-                ////    return;
-                ////}
 
                 //var socketService = app.Services.GetRequiredService<IDevSocketService>();
                 //await socketService.NewSocketClient(new SocketClient(ws));

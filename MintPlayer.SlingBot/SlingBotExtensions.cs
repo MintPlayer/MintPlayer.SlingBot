@@ -18,15 +18,15 @@ namespace MintPlayer.SlingBot;
 public static class SlingBotExtensions
 {
     public static IServiceCollection AddSlingBot<TWebhookEventProcessor>(this IServiceCollection services, IWebHostEnvironment environment)
-        where TWebhookEventProcessor : WebhookEventProcessor
+        where TWebhookEventProcessor : SlingBotWebhookEventProcessor
     {
         services.AddScoped<WebhookEventProcessor, TWebhookEventProcessor>();
 
-        if (environment.IsDevelopment())
-        {
+        if (environment.IsProduction())
             services.AddSingleton<IDevSocketService, DevSocketService>();
+
+        if (environment.IsDevelopment())
             services.AddHostedService<WebhookProxy>();
-        }
 
         return services;
     }
@@ -71,14 +71,14 @@ public static class SlingBotExtensions
                     return;
                 }
 
-                while (true)
-                {
-                    await ws.WriteObject(new Handshake { Username = "Some message from", Password = "the server" });
-                    await Task.Delay(1000);
-                }
+                //while (true)
+                //{
+                //    await ws.WriteObject(new Handshake { Username = "Some message from", Password = "the server" });
+                //    await Task.Delay(1000);
+                //}
 
-                //var socketService = app.Services.GetRequiredService<IDevSocketService>();
-                //await socketService.NewSocketClient(new SocketClient(ws));
+                var socketService = app.Services.GetRequiredService<IDevSocketService>();
+                await socketService.NewSocketClient(new SocketClient(ws));
             });
         }
 

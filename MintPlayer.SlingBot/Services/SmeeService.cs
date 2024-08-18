@@ -47,15 +47,14 @@ internal class SmeeService : IHostedService
         if (e.Event == SmeeEventType.Message)
         {
             var jsonFormatted = e.Data.GetFormattedJson();
-            using (var scope = services.CreateScope())
-            {
-                var processor = scope.ServiceProvider.GetRequiredService<WebhookEventProcessor>();
-                //var json = System.Text.Json.JsonSerializer.Deserialize<IssuesEvent>(jsonFormatted);
-                await processor.ProcessWebhookAsync(
-                    e.Data.Headers.ToDictionary(h => h.Key, h => new Microsoft.Extensions.Primitives.StringValues(h.Value)),
-                    jsonFormatted
-                );
-            }
+            using var scope = services.CreateScope();
+
+            var processor = scope.ServiceProvider.GetRequiredService<WebhookEventProcessor>();
+            //var json = System.Text.Json.JsonSerializer.Deserialize<IssuesEvent>(jsonFormatted);
+            await processor.ProcessWebhookAsync(
+                e.Data.Headers.ToDictionary(h => h.Key, h => new Microsoft.Extensions.Primitives.StringValues(h.Value)),
+                jsonFormatted
+            );
         }
     }
 }

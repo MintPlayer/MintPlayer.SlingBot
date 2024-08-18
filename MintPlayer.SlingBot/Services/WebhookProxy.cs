@@ -35,12 +35,12 @@ internal class WebhookProxy : IHostedService
 
             await Task.Run(async () =>
             {
-                //var handshake = new Handshake
-                //{
-                //    Username = username,
-                //    Password = password,
-                //};
-                //await ws.WriteObject(handshake);
+                var handshake = new Handshake
+                {
+                    Username = username,
+                    Password = password,
+                };
+                await ws.WriteObject(handshake);
 
                 while (true)
                 {

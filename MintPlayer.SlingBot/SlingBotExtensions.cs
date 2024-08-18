@@ -73,7 +73,7 @@ public static class SlingBotExtensions
 
                 while (true)
                 {
-                    await ws.WriteObject(new Handshake { Username = "Pieterjan", Password = "Pass" });
+                    await ws.WriteObject(new Handshake { Username = "Some message from", Password = "the server" });
                     await Task.Delay(1000);
                 }
 

@@ -77,7 +77,7 @@ public static class SlingBotExtensions
                 //    return;
                 //}
                 var handshake = await ws.ReadObject<Handshake>();
-                if (handshake == null || handshake.Username != "Pieterjan" || handshake.Password != "Pass")
+                if (handshake == null || handshake.Username != proxyUser || handshake.Password != proxyPassword)
                 {
                     await ws.CloseAsync(WebSocketCloseStatus.InternalServerError, "Wrong credentials", CancellationToken.None);
                     return;

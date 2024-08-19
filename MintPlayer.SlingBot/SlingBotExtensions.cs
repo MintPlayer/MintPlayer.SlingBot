@@ -70,12 +70,6 @@ public static class SlingBotExtensions
                 });
 
                 //Receive handshake
-                //var handshake = await ws.ReadObject<Handshake>();
-                //if (handshake == null || handshake.Username != proxyUser || handshake.Password != proxyPassword)
-                //{
-                //    await ws.CloseAsync(WebSocketCloseStatus.InternalServerError, "Wrong credentials", CancellationToken.None);
-                //    return;
-                //}
                 var handshake = await ws.ReadObject<Handshake>();
                 if (handshake == null || handshake.Username != proxyUser || handshake.Password != proxyPassword)
                 {
@@ -85,8 +79,10 @@ public static class SlingBotExtensions
 
                 while (true)
                 {
-                    await ws.WriteObject(new Handshake { Username = "Some message from", Password = "the server" });
-                    await Task.Delay(10000);
+                    var svc = app.Services.GetRequiredService<IDevSocketService>();
+                    var message = await svc.GetMessage();
+                    await ws.WriteObject(message);
+                    await Task.Delay(5000);
                 }
 
                 //var socketService = app.Services.GetRequiredService<IDevSocketService>();

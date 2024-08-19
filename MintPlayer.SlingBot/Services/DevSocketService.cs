@@ -11,6 +11,12 @@ internal class DevSocketService : IDevSocketService
     {
     }
 
+    private int counter = 1;
+    public Task<Message> GetMessage()
+    {
+        return Task.FromResult(new Message { Content = "Some message from the server", Counter = counter++ });
+    }
+
     public Task NewSocketClient(SocketClient client)
     {
         clients.Add(client);

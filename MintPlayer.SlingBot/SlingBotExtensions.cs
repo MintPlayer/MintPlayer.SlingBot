@@ -77,16 +77,15 @@ public static class SlingBotExtensions
                     return;
                 }
 
-                while (true)
-                {
-                    var svc = app.Services.GetRequiredService<IDevSocketService>();
-                    var message = await svc.GetMessage();
-                    await ws.WriteObject(message);
-                    await Task.Delay(5000);
-                }
+                var socketService = app.Services.GetRequiredService<IDevSocketService>();
+                await socketService.NewSocketClient(new SocketClient(ws));
+                //while (true)
+                //{
+                //    var message = await socketService.GetMessage();
+                //    await ws.WriteObject(message);
+                //    await Task.Delay(5000);
+                //}
 
-                //var socketService = app.Services.GetRequiredService<IDevSocketService>();
-                //await socketService.NewSocketClient(new SocketClient(ws));
             });
         }
 

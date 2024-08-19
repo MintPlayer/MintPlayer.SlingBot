@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Primitives;
 using MintPlayer.SlingBot.Abstractions;
+using MintPlayer.SlingBot.Extensions;
 using System.Net.WebSockets;
 
 namespace MintPlayer.SlingBot.Services;
@@ -17,12 +18,17 @@ internal class DevSocketService : IDevSocketService
         return Task.FromResult(new Message { Content = "Some message from the server", Counter = counter++ });
     }
 
-    public Task NewSocketClient(SocketClient client)
+    public async Task NewSocketClient(SocketClient client)
     {
         clients.Add(client);
         // TODO: On close remove from list
 
-        return Task.CompletedTask;
+        while (true)
+        {
+            var message = await GetMessage();
+            await client.WebSocket.WriteObject(message);
+            await Task.Delay(5000);
+        }
     }
 
     public async Task SendToClients(IDictionary<string, StringValues> headers, string body)

@@ -27,6 +27,10 @@ internal class DevSocketService : IDevSocketService
         {
             // Keep websocket connection open
             await Task.Delay(1000);
+            if (client.WebSocket.State is WebSocketState.CloseReceived or WebSocketState.Closed)
+            {
+                break;
+            }
             //var message = await GetMessage();
             //await client.WebSocket.WriteObject(message);
             //await Task.Delay(5000);

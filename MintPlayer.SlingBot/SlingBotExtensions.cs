@@ -75,14 +75,14 @@ public static class SlingBotExtensions
                 //    return;
                 //}
 
-                //while (true)
-                //{
-                //    await ws.WriteObject(new Handshake { Username = "Some message from", Password = "the server" });
-                //    await Task.Delay(1000);
-                //}
+                while (true)
+                {
+                    await ws.WriteObject(new Handshake { Username = "Some message from", Password = "the server" });
+                    await Task.Delay(1000);
+                }
 
-                var socketService = app.Services.GetRequiredService<IDevSocketService>();
-                await socketService.NewSocketClient(new SocketClient(ws));
+                //var socketService = app.Services.GetRequiredService<IDevSocketService>();
+                //await socketService.NewSocketClient(new SocketClient(ws));
             });
         }
 

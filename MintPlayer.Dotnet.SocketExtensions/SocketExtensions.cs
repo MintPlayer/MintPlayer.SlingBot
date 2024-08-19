@@ -2,13 +2,15 @@
 using System.Net.WebSockets;
 using System.Text;
 
-namespace MintPlayer.SlingBot.Extensions;
+namespace System.Net.WebSockets;
 
-internal static class SocketExtensions
+public static class SocketExtensions
 {
+    const int bufferSize = 512;
+
     public static async Task<string> ReadMessage(this WebSocket ws)
     {
-        var buffer = new byte[512];
+        var buffer = new byte[bufferSize];
         byte[] fullMessage = [];
         WebSocketReceiveResult result;
 
@@ -31,7 +33,15 @@ internal static class SocketExtensions
     public static async Task WriteMessage(this WebSocket ws, string message)
     {
         var bytes = Encoding.UTF8.GetBytes(message);
-        await ws.SendAsync(bytes, WebSocketMessageType.Text, true, CancellationToken.None);
+        var bytesSent = 0;
+
+        do
+        {
+            var arraySegment = new ArraySegment<byte>(bytes, bytesSent, bufferSize);
+            bytesSent += bufferSize;
+            await ws.SendAsync(arraySegment, WebSocketMessageType.Text, bytesSent >= bytes.Length, CancellationToken.None);
+        }
+        while (bytesSent < bytes.Length);
     }
 
     public static async Task<T?> ReadObject<T>(this WebSocket ws)

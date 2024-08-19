@@ -13,23 +13,19 @@
 		<Version>8.0.0</Version>
 		<Authors>Pieterjan De Clippel</Authors>
 		<Company>MintPlayer</Company>
-		<Description>Abstractions for SlingBot</Description>
-		<PackageProjectUrl>https://github.com/MintPlayer/MintPlayer.SlingBot/MintPlayer.SlingBot.Abstractions</PackageProjectUrl>
+		<Description>Extension methods for WebSocket</Description>
+		<PackageProjectUrl>https://github.com/MintPlayer/MintPlayer.SlingBot/MintPlayer.Dotnet.SocketExtensions</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/MintPlayer/MintPlayer.SlingBot</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageId>MintPlayer.SlingBot.Abstractions</PackageId>
-		<PackageTags>SlingBot, GitHub apps</PackageTags>
+		<PackageId>MintPlayer.Dotnet.SocketExtensions</PackageId>
+		<PackageTags>Socket, ReadMessage, ReadObject</PackageTags>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Microsoft.Extensions.Primitives" Version="8.0.0" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <ProjectReference Include="..\MintPlayer.Dotnet.SocketExtensions\MintPlayer.Dotnet.SocketExtensions.csproj" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 
 </Project>

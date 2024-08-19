@@ -44,6 +44,14 @@ public static class SlingBotExtensions
 
         if (app.Environment.IsProduction())
         {
+            app.MapGet("Blah", () =>
+            {
+                var proxyUser = app.Configuration["WebhookProxy:Username"];
+                var proxyPassword = app.Configuration["WebhookProxy:Password"];
+
+                return $"{proxyUser} {proxyPassword}";
+            });
+
             app.Map("/ws", async (context) =>
             {
                 if (!context.WebSockets.IsWebSocketRequest)

@@ -55,7 +55,11 @@ public static class SlingBotExtensions
                 var proxyUser = app.Configuration["WebhookProxy:Username"];
                 var proxyPassword = app.Configuration["WebhookProxy:Password"];
 
-                var ws = await context.WebSockets.AcceptWebSocketAsync("wss");
+                var ws = await context.WebSockets.AcceptWebSocketAsync(new WebSocketAcceptContext
+                {
+                    SubProtocol = "wss",
+                    KeepAliveInterval = TimeSpan.FromSeconds(10)
+                });
 
                 //while (true)
                 //{

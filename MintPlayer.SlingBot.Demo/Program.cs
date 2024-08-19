@@ -22,6 +22,7 @@ builder.Services
 
 builder.Services.AddControllers();
 builder.Services.AddHealthChecks();
+builder.Services.AddLogging(options => options.AddConsole());
 builder.Services.AddSlingBot<GithubProcessor>(builder.Environment);
 
 var app = builder.Build();

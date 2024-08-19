@@ -37,7 +37,7 @@ public static class SocketExtensions
 
         do
         {
-            var arraySegment = new ArraySegment<byte>(bytes, bytesSent, Math.Min(bufferSize, bufferSize - bytesSent));
+            var arraySegment = new ArraySegment<byte>(bytes, bytesSent, Math.Min(bufferSize, bytes.Length - bytesSent));
             bytesSent += bufferSize;
             await ws.SendAsync(arraySegment, WebSocketMessageType.Text, bytesSent >= bytes.Length, CancellationToken.None);
         }

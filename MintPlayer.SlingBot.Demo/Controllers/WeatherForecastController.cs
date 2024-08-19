@@ -12,10 +12,11 @@ namespace MintPlayer.SlingBot.Demo.Controllers
         };
 
         private readonly ILogger<WeatherForecastController> _logger;
-
-        public WeatherForecastController(ILogger<WeatherForecastController> logger)
+        private readonly IConfiguration configuration;
+        public WeatherForecastController(ILogger<WeatherForecastController> logger, IConfiguration configuration)
         {
             _logger = logger;
+            this.configuration = configuration;
         }
 
         [HttpGet]
@@ -36,6 +37,8 @@ namespace MintPlayer.SlingBot.Demo.Controllers
             return [
                 Environment.GetEnvironmentVariable("WebhookProxy:Username") ?? string.Empty,
                 Environment.GetEnvironmentVariable("WebhookProxy:Password") ?? string.Empty,
+                configuration.GetValue<string>("WebhookProxy:Username") ?? string.Empty,
+                configuration.GetValue<string>("WebhookProxy:Password") ?? string.Empty,
             ];
         }
     }

@@ -41,9 +41,16 @@ internal class DevSocketService : IDevSocketService
             {body}
             """;
 
-        await Task.WhenAll(clients
-            .Where(c => c.WebSocket.State == WebSocketState.Open)
-            .Select(c => c.SendMessage(payload))
-        );
+        //await Task.WhenAll(clients
+        //    .Where(c => c.WebSocket.State == WebSocketState.Open)
+        //    .Select(c => c.SendMessage(payload))
+        //);
+        foreach (var client in clients)
+        {
+            if (client.WebSocket.State == WebSocketState.Open)
+            {
+                await client.SendMessage(payload);
+            }
+        }
     }
 }

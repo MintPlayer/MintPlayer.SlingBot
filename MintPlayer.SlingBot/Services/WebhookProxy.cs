@@ -48,8 +48,8 @@ internal class WebhookProxy : IHostedService
 
                     var message = await ws.ReadMessage();
 
-                    var split = message.Split("\r\n\r\n");
-                    var headers = split[0].Split("\r\n")
+                    var split = message.Split("\n\n");
+                    var headers = split[0].Split("\n")
                         .Select(h => h.Split(':'))
                         .ToDictionary(h => h[0].Trim(), h => new Microsoft.Extensions.Primitives.StringValues(h[1].Trim()));
                     var body = split[1];

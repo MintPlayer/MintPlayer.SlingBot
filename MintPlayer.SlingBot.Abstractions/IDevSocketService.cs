@@ -10,7 +10,7 @@ public class Message
 
 public interface IDevSocketService
 {
-    Task<Message> GetMessage();
+    //Task<Message> GetMessage();
     Task NewSocketClient(SocketClient client);
     Task SendToClients(IDictionary<string, StringValues> headers, string body);
 }

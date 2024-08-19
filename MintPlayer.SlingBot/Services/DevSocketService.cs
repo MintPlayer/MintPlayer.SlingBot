@@ -12,11 +12,11 @@ internal class DevSocketService : IDevSocketService
     {
     }
 
-    private int counter = 1;
-    public Task<Message> GetMessage()
-    {
-        return Task.FromResult(new Message { Content = "Some message from the server", Counter = counter++ });
-    }
+    //private int counter = 1;
+    //public Task<Message> GetMessage()
+    //{
+    //    return Task.FromResult(new Message { Content = "Some message from the server", Counter = counter++ });
+    //}
 
     public async Task NewSocketClient(SocketClient client)
     {
@@ -25,9 +25,11 @@ internal class DevSocketService : IDevSocketService
 
         while (true)
         {
-            var message = await GetMessage();
-            await client.WebSocket.WriteObject(message);
-            await Task.Delay(5000);
+            // Keep websocket connection open
+            await Task.Delay(1000);
+            //var message = await GetMessage();
+            //await client.WebSocket.WriteObject(message);
+            //await Task.Delay(5000);
         }
     }
 
@@ -39,6 +41,9 @@ internal class DevSocketService : IDevSocketService
             {body}
             """;
 
-        await Task.WhenAll(clients.Where(c => c.WebSocket.State == WebSocketState.Open).Select(c => c.SendMessage(payload)));
+        await Task.WhenAll(clients
+            .Where(c => c.WebSocket.State == WebSocketState.Open)
+            .Select(c => c.SendMessage(payload))
+        );
     }
 }

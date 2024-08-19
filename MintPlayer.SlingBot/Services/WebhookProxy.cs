@@ -44,24 +44,24 @@ internal class WebhookProxy : IHostedService
 
                 while (true)
                 {
-                    var data = await ws.ReadObject<Abstractions.Message>();
+                    //var data = await ws.ReadObject<Abstractions.Message>();
 
-                    //var message = await ws.ReadMessage();
+                    var message = await ws.ReadMessage();
 
-                    //var split = message.Split("\r\n\r\n");
-                    //var headers = split[0].Split("\r\n")
-                    //    .Select(h => h.Split(':'))
-                    //    .ToDictionary(h => h[0].Trim(), h => new Microsoft.Extensions.Primitives.StringValues(h[1].Trim()));
-                    //var body = split[1];
+                    var split = message.Split("\r\n\r\n");
+                    var headers = split[0].Split("\r\n")
+                        .Select(h => h.Split(':'))
+                        .ToDictionary(h => h[0].Trim(), h => new Microsoft.Extensions.Primitives.StringValues(h[1].Trim()));
+                    var body = split[1];
 
 
-                    //using var scope = services.CreateScope();
-                    //var processor = scope.ServiceProvider.GetRequiredService<WebhookEventProcessor>();
+                    using var scope = services.CreateScope();
+                    var processor = scope.ServiceProvider.GetRequiredService<WebhookEventProcessor>();
 
-                    //await processor.ProcessWebhookAsync(
-                    //    headers,
-                    //    body
-                    //);
+                    await processor.ProcessWebhookAsync(
+                        headers,
+                        body
+                    );
 
                     if (cancellationToken.IsCancellationRequested) break;
                 }

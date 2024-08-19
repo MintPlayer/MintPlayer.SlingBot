@@ -29,5 +29,14 @@ namespace MintPlayer.SlingBot.Demo.Controllers
             })
             .ToArray();
         }
+
+        [HttpGet("Env")]
+        public string[] Env()
+        {
+            return [
+                Environment.GetEnvironmentVariable("WebhookProxy:Username") ?? string.Empty,
+                Environment.GetEnvironmentVariable("WebhookProxy:Password") ?? string.Empty,
+            ];
+        }
     }
 }

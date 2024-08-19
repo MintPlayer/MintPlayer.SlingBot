@@ -37,8 +37,10 @@ internal class WebhookProxy : IHostedService
             {
                 var handshake = new Handshake
                 {
-                    Username = username,
-                    Password = password,
+                    //Username = username,
+                    //Password = password,
+                    Username = "Pieterjan",
+                    Password = "Pass"
                 };
                 await ws.WriteObject(handshake);
 

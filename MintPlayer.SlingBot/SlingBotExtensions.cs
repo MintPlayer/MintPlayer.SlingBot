@@ -61,24 +61,24 @@ public static class SlingBotExtensions
                     KeepAliveInterval = TimeSpan.FromSeconds(10)
                 });
 
-                //while (true)
-                //{
-                //    await ws.WriteObject(new Handshake { Username = "Pieterjan", Password = "Pass" });
-                //    await Task.Delay(1000);
-                //}
-
                 //Receive handshake
-                var handshake = await ws.ReadObject<Handshake>();
+                //var handshake = await ws.ReadObject<Handshake>();
                 //if (handshake == null || handshake.Username != proxyUser || handshake.Password != proxyPassword)
                 //{
                 //    await ws.CloseAsync(WebSocketCloseStatus.InternalServerError, "Wrong credentials", CancellationToken.None);
                 //    return;
                 //}
+                var handshake = await ws.ReadObject<Handshake>();
+                if (handshake == null || handshake.Username != "Pieterjan" || handshake.Password != "Pass")
+                {
+                    await ws.CloseAsync(WebSocketCloseStatus.InternalServerError, "Wrong credentials", CancellationToken.None);
+                    return;
+                }
 
                 while (true)
                 {
                     await ws.WriteObject(new Handshake { Username = "Some message from", Password = "the server" });
-                    await Task.Delay(1000);
+                    await Task.Delay(10000);
                 }
 
                 //var socketService = app.Services.GetRequiredService<IDevSocketService>();

@@ -44,7 +44,7 @@ internal class WebhookProxy : IHostedService
 
                 while (true)
                 {
-                    var data = await ws.ReadObject<Handshake>();
+                    var data = await ws.ReadObject<Abstractions.Message>();
 
                     //var message = await ws.ReadMessage();
 

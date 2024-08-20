@@ -12,16 +12,9 @@ internal class DevSocketService : IDevSocketService
     {
     }
 
-    //private int counter = 1;
-    //public Task<Message> GetMessage()
-    //{
-    //    return Task.FromResult(new Message { Content = "Some message from the server", Counter = counter++ });
-    //}
-
     public async Task NewSocketClient(SocketClient client)
     {
         clients.Add(client);
-        // TODO: On close remove from list
 
         while (true)
         {
@@ -31,10 +24,9 @@ internal class DevSocketService : IDevSocketService
             {
                 break;
             }
-            //var message = await GetMessage();
-            //await client.WebSocket.WriteObject(message);
-            //await Task.Delay(5000);
         }
+
+        clients.Remove(client);
     }
 
     public async Task SendToClients(IDictionary<string, StringValues> headers, string body)

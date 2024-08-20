@@ -7,7 +7,7 @@ namespace MintPlayer.SlingBot.Demo;
 
 public class GithubProcessor : SlingBotWebhookEventProcessor
 {
-    public GithubProcessor(IHostEnvironment environment, IServiceProvider serviceProvider) : base(environment, serviceProvider) { }
+    //public GithubProcessor(IHostEnvironment environment, IServiceProvider serviceProvider) : base(environment, serviceProvider) { }
 
     protected override async Task ProcessIssuesWebhookAsync(WebhookHeaders headers, IssuesEvent issuesEvent, IssuesAction action)
     {

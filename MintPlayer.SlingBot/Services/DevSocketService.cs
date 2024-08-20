@@ -26,7 +26,7 @@ internal class DevSocketService : IDevSocketService
             }
         }
 
-        clients.Remove(client);
+        //clients.Remove(client);
     }
 
     public async Task SendToClients(IDictionary<string, StringValues> headers, string body)

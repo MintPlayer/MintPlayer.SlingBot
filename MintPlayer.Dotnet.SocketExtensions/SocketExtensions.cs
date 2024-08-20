@@ -11,15 +11,24 @@ public static class SocketExtensions
 
     public static async Task<string> ReadMessage(this WebSocket ws)
     {
-        //var buffer = new byte[bufferSize];
-        var buffer = new ArraySegment<byte>(new byte[bufferSize]);
-        using var ms = new MemoryStream();
+        //var buffer = new ArraySegment<byte>(new byte[bufferSize]);
+        //using var ms = new MemoryStream();
+        //WebSocketReceiveResult result;
+
+        //do
+        //{
+        //    result = await ws.ReceiveAsync(buffer, CancellationToken.None);
+        //    ms.Write(buffer.Array ?? Array.Empty<byte>(), buffer.Offset, result.Count);
+        //}
+
+        var buffer = new byte[bufferSize];
+        byte[] fullMessage = [];
         WebSocketReceiveResult result;
 
         do
         {
-            result = await ws.ReceiveAsync(buffer, CancellationToken.None);
-            ms.Write(buffer.Array ?? Array.Empty<byte>(), buffer.Offset, result.Count);
+            result = await ws.ReceiveAsync(new ArraySegment<byte>(buffer), CancellationToken.None);
+            fullMessage = fullMessage.Concat(buffer).ToArray();
         }
         while (!result.EndOfMessage);
 
@@ -28,11 +37,12 @@ public static class SocketExtensions
             throw new WebSocketException("The websocket was closed");
         }
 
-        ms.Seek(0, SeekOrigin.Begin);
+        //ms.Seek(0, SeekOrigin.Begin);
 
-        using var reader = new StreamReader(ms, Encoding.UTF8);
+        //using var reader = new StreamReader(ms, Encoding.UTF8);
 
-        var message = await reader.ReadToEndAsync();
+        //var message = await reader.ReadToEndAsync();
+        var message = Encoding.UTF8.GetString(fullMessage);
         return message;
     }
 

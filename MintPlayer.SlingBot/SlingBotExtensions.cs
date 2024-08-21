@@ -89,7 +89,7 @@ public static class SlingBotExtensions
 
 
                     var socketService = app.Services.GetRequiredService<IDevSocketService>();
-                    await socketService.NewSocketClient(new SocketClient(ws, githubUser.Email));
+                    await socketService.NewSocketClient(new SocketClient(ws, githubUser.Login));
                 }
                 catch (Octokit.AuthorizationException)
                 {

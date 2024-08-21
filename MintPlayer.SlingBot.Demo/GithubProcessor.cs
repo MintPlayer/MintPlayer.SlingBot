@@ -13,7 +13,7 @@ public class GithubProcessor : SlingBotWebhookEventProcessor
     public override async Task<IEnumerable<SocketClient>> GetDevSocketsForWebhook(WebhookEvent webhook, IEnumerable<SocketClient> connectedClients)
     {
         await Task.Delay(1);
-        return connectedClients.Where(c => c.Email == webhook.Sender?.Email);
+        return connectedClients.Where(c => c.GithubUsername == webhook.Sender?.Login);
     }
 
     protected override async Task ProcessIssuesWebhookAsync(WebhookHeaders headers, IssuesEvent issuesEvent, IssuesAction action)

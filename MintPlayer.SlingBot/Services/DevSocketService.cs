@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Primitives;
 using MintPlayer.SlingBot.Abstractions;
 using MintPlayer.SlingBot.Extensions;
+using Octokit.Webhooks;
 using System.Net.WebSockets;
 
 namespace MintPlayer.SlingBot.Services;
@@ -8,8 +9,10 @@ namespace MintPlayer.SlingBot.Services;
 internal class DevSocketService : IDevSocketService
 {
     private readonly List<SocketClient> clients = new List<SocketClient>();
-    public DevSocketService()
+    private readonly SlingBotWebhookEventProcessor processor;
+    public DevSocketService(SlingBotWebhookEventProcessor processor)
     {
+        this.processor = processor;
     }
 
     public async Task NewSocketClient(SocketClient client)
@@ -41,7 +44,13 @@ internal class DevSocketService : IDevSocketService
         //    .Where(c => c.WebSocket.State == WebSocketState.Open)
         //    .Select(c => c.SendMessage(payload))
         //);
-        foreach (var client in clients)
+
+        var headersObj = WebhookHeaders.Parse(headers);
+        var hook = processor.DeserializeWebhookEvent(headersObj, body);
+
+        var allowedClients = await processor.GetDevSocketsForWebhook(hook, clients);
+
+        foreach (var client in allowedClients)
         {
             if (client.WebSocket.State == WebSocketState.Open)
             {

@@ -6,7 +6,7 @@ using Octokit.Webhooks;
 
 namespace MintPlayer.SlingBot;
 
-public class SlingBotWebhookEventProcessor : Octokit.Webhooks.WebhookEventProcessor
+public abstract class SlingBotWebhookEventProcessor : Octokit.Webhooks.WebhookEventProcessor
 {
     private readonly IHostEnvironment environment;
     private readonly IServiceProvider serviceProvider;
@@ -15,6 +15,8 @@ public class SlingBotWebhookEventProcessor : Octokit.Webhooks.WebhookEventProces
         this.environment = environment;
         this.serviceProvider = serviceProvider;
     }
+
+    public abstract Task<IEnumerable<SocketClient>> GetDevSocketsForWebhook(WebhookEvent webhook, IEnumerable<SocketClient> connectedClients);
 
     public override async Task ProcessWebhookAsync(IDictionary<string, StringValues> headers, string body)
     {

@@ -23,7 +23,10 @@ public static class SlingBotExtensions
         services.AddScoped<WebhookEventProcessor, TWebhookEventProcessor>();
 
         if (environment.IsProduction())
+        {
             services.AddSingleton<IDevSocketService, DevSocketService>();
+            services.AddScoped<SlingBotWebhookEventProcessor, TWebhookEventProcessor>();
+        }
 
         if (environment.IsDevelopment())
             services.AddHostedService<WebhookProxy>();

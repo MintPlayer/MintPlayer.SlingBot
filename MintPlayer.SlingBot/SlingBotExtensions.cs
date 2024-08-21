@@ -57,38 +57,45 @@ public static class SlingBotExtensions
 
             app.Map("/ws", async (context) =>
             {
-                if (!context.WebSockets.IsWebSocketRequest)
+                try
                 {
-                    context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                    if (!context.WebSockets.IsWebSocketRequest)
+                    {
+                        context.Response.StatusCode = StatusCodes.Status400BadRequest;
+                        return;
+                    }
+
+                    var proxyUser = app.Configuration["WebhookProxy:Username"];
+                    var proxyPassword = app.Configuration["WebhookProxy:Password"];
+
+                    var ws = await context.WebSockets.AcceptWebSocketAsync(new WebSocketAcceptContext
+                    {
+                        SubProtocol = "wss",
+                        KeepAliveInterval = TimeSpan.FromMinutes(5)
+                    });
+
+                    //Receive handshake
+                    var handshake = await ws.ReadObject<Handshake>();
+                    if (handshake == null || handshake.Username != proxyUser || handshake.Password != proxyPassword)
+                    {
+                        await ws.CloseAsync(WebSocketCloseStatus.InternalServerError, "Wrong credentials", CancellationToken.None);
+                        return;
+                    }
+
+
+                    var githubClient = new Octokit.GitHubClient(new Octokit.ProductHeaderValue("SlingBot"));
+                    githubClient.Credentials = new Octokit.Credentials(handshake.GithubToken);
+                    var githubUser = await githubClient.User.Current();
+
+
+                    var socketService = app.Services.GetRequiredService<IDevSocketService>();
+                    await socketService.NewSocketClient(new SocketClient(ws, githubUser.Email));
+                }
+                catch (Octokit.AuthorizationException)
+                {
+                    context.Response.StatusCode = StatusCodes.Status401Unauthorized;
                     return;
                 }
-
-                var proxyUser = app.Configuration["WebhookProxy:Username"];
-                var proxyPassword = app.Configuration["WebhookProxy:Password"];
-
-                var ws = await context.WebSockets.AcceptWebSocketAsync(new WebSocketAcceptContext
-                {
-                    SubProtocol = "wss",
-                    KeepAliveInterval = TimeSpan.FromMinutes(5)
-                });
-
-                //Receive handshake
-                var handshake = await ws.ReadObject<Handshake>();
-                if (handshake == null || handshake.Username != proxyUser || handshake.Password != proxyPassword)
-                {
-                    await ws.CloseAsync(WebSocketCloseStatus.InternalServerError, "Wrong credentials", CancellationToken.None);
-                    return;
-                }
-
-                var socketService = app.Services.GetRequiredService<IDevSocketService>();
-                await socketService.NewSocketClient(new SocketClient(ws));
-                //while (true)
-                //{
-                //    var message = await socketService.GetMessage();
-                //    await ws.WriteObject(message);
-                //    await Task.Delay(5000);
-                //}
-
             });
         }
 

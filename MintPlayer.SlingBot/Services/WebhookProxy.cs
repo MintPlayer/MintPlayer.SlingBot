@@ -23,6 +23,7 @@ internal class WebhookProxy : IHostedService
         var username = configuration["WebhookProxy:Username"];
         var password = configuration["WebhookProxy:Password"];
         var webhookProxyUrl = configuration["WebhookProxy:ProductionWebsocketUrl"];
+        var githubToken = configuration["github:token"];
 
         if (!string.IsNullOrEmpty(webhookProxyUrl))
         {
@@ -39,6 +40,7 @@ internal class WebhookProxy : IHostedService
                 {
                     Username = username,
                     Password = password,
+                    GithubToken = githubToken,
                 };
                 await ws.WriteObject(handshake);
 

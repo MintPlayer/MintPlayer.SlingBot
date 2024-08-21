@@ -5,9 +5,14 @@ namespace MintPlayer.SlingBot.Abstractions;
 
 public class SocketClient
 {
-    public SocketClient(WebSocket webSocket) => WebSocket = webSocket;
+    public SocketClient(WebSocket webSocket, string email)
+    {
+        WebSocket = webSocket;
+        Email = email;
+    }
 
     public WebSocket WebSocket { get; }
+    public string Email { get; }
 
     const int bufferSize = 2048;
 

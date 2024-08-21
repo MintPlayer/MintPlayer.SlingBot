@@ -10,7 +10,7 @@
 
 	<PropertyGroup>
 		<IsPackable>true</IsPackable>
-		<Version>8.0.1</Version>
+		<Version>8.0.4</Version>
 		<Authors>Pieterjan De Clippel</Authors>
 		<Company>MintPlayer</Company>
 		<Description>Extension methods for WebSocket</Description>

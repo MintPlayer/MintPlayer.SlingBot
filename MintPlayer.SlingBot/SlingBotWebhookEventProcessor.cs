@@ -18,12 +18,17 @@ public class SlingBotWebhookEventProcessor : Octokit.Webhooks.WebhookEventProces
 
     public override async Task ProcessWebhookAsync(IDictionary<string, StringValues> headers, string body)
     {
+        // This base method is using a case-sensitive Dictionary.
+        // This means that headers can't be found in most situations.
+        // We override the method, and create a case-insensitive Dictionary instead.
+        var caseInsensitiveHeaders = new Dictionary<string, StringValues>(headers, StringComparer.OrdinalIgnoreCase);
+
         if (environment.IsProduction())
         {
             using var scope = serviceProvider.CreateScope();
             var devSocketService = scope.ServiceProvider.GetRequiredService<IDevSocketService>();
-            await devSocketService.SendToClients(headers, body);
+            await devSocketService.SendToClients(caseInsensitiveHeaders, body);
         }
-        await base.ProcessWebhookAsync(headers, body);
+        await base.ProcessWebhookAsync(caseInsensitiveHeaders, body);
     }
 }

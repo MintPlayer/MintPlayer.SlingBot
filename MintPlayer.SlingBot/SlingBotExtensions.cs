@@ -66,7 +66,7 @@ public static class SlingBotExtensions
                 var ws = await context.WebSockets.AcceptWebSocketAsync(new WebSocketAcceptContext
                 {
                     SubProtocol = "wss",
-                    KeepAliveInterval = TimeSpan.FromSeconds(10)
+                    KeepAliveInterval = TimeSpan.FromMinutes(5)
                 });
 
                 //Receive handshake

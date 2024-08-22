@@ -1,5 +1,7 @@
-﻿using Microsoft.Extensions.Primitives;
+﻿using Microsoft.Extensions.Options;
+using Microsoft.Extensions.Primitives;
 using MintPlayer.SlingBot.Abstractions;
+using MintPlayer.SlingBot.Options;
 using Octokit.Webhooks;
 using Octokit.Webhooks.Events;
 using Octokit.Webhooks.Events.Issues;
@@ -8,7 +10,11 @@ namespace MintPlayer.SlingBot.Demo;
 
 public class GithubProcessor : SlingBotWebhookEventProcessor
 {
-    public GithubProcessor(IHostEnvironment environment, IServiceProvider serviceProvider) : base(environment, serviceProvider) { }
+    private readonly IAuthenticatedGithubService authenticatedGithubService;
+    public GithubProcessor(IHostEnvironment environment, IServiceProvider serviceProvider, ISignatureService signatureService, IOptions<BotOptions> botOptions, IAuthenticatedGithubService authenticatedGithubService) : base(environment, serviceProvider, signatureService, botOptions)
+    {
+        this.authenticatedGithubService = authenticatedGithubService;
+    }
 
     public override async Task<IEnumerable<SocketClient>> GetDevSocketsForWebhook(WebhookEvent webhook, IEnumerable<SocketClient> connectedClients)
     {
@@ -18,6 +24,7 @@ public class GithubProcessor : SlingBotWebhookEventProcessor
 
     protected override async Task ProcessIssuesWebhookAsync(WebhookHeaders headers, IssuesEvent issuesEvent, IssuesAction action)
     {
-        await base.ProcessIssuesWebhookAsync(headers, issuesEvent, action);
+        var githubClient = await authenticatedGithubService.GetAuthenticatedGithubClient(issuesEvent.Installation!.Id);
+        await githubClient.Issue.Comment.Create(issuesEvent.Repository!.Id, (int)issuesEvent.Issue.Number, "Thanks for creating an issue");
     }
 }

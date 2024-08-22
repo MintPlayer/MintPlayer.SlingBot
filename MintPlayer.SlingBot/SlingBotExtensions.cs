@@ -31,7 +31,9 @@ public static class SlingBotExtensions
         if (environment.IsDevelopment())
             services.AddHostedService<WebhookProxy>();
 
-        return services;
+        return services
+            .AddScoped<Abstractions.IAuthenticatedGithubService, AuthenticatedGithubService>()
+            .AddScoped<Abstractions.ISignatureService, SignatureService>();
     }
 
     public static IEndpointRouteBuilder MapSlingBot(this WebApplication app, string path = "/api/github/webhooks")

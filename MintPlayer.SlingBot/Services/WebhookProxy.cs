@@ -20,8 +20,6 @@ internal class WebhookProxy : IHostedService
 
     public async Task StartAsync(CancellationToken cancellationToken)
     {
-        var username = configuration["WebhookProxy:Username"];
-        var password = configuration["WebhookProxy:Password"];
         var webhookProxyUrl = configuration["WebhookProxy:ProductionWebsocketUrl"];
         var githubToken = configuration["github:token"];
 
@@ -36,18 +34,11 @@ internal class WebhookProxy : IHostedService
 
             await Task.Run(async () =>
             {
-                var handshake = new Handshake
-                {
-                    Username = username,
-                    Password = password,
-                    GithubToken = githubToken,
-                };
+                var handshake = new Handshake { GithubToken = githubToken };
                 await ws.WriteObject(handshake);
 
                 while (true)
                 {
-                    //var data = await ws.ReadObject<Abstractions.Message>();
-
                     var message = await ws.ReadMessage();
 
                     var split = message.Split("\n\n");

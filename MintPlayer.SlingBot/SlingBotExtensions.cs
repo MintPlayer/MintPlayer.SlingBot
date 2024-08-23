@@ -61,7 +61,6 @@ public static class SlingBotExtensions
                     }
 
                     var proxyAllowedUsers = app.Configuration.GetValue<string[]>("WebhookProxy:AllowedUsers") ?? [];
-
                     var ws = await context.WebSockets.AcceptWebSocketAsync(new WebSocketAcceptContext
                     {
                         SubProtocol = "wss",

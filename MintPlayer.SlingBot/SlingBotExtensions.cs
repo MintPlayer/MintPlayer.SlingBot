@@ -60,7 +60,6 @@ public static class SlingBotExtensions
                         return;
                     }
 
-                    var proxyAllowedUsers = app.Configuration.GetValue<string[]>("WebhookProxy:AllowedUsers") ?? [];
                     var ws = await context.WebSockets.AcceptWebSocketAsync(new WebSocketAcceptContext
                     {
                         SubProtocol = "wss",
@@ -79,6 +78,10 @@ public static class SlingBotExtensions
                     githubClient.Credentials = new Octokit.Credentials(handshake.GithubToken);
                     var githubUser = await githubClient.User.Current();
 
+                    // Environment variables:
+                    // WebhookProxy:AllowedUsers:0 => JohnDoe
+                    // WebhookProxy:AllowedUsers:1 => JimmyKnibble
+                    var proxyAllowedUsers = app.Configuration.GetSection("WebhookProxy:AllowedUsers").Get<string[]>() ?? [];
                     if (!proxyAllowedUsers.Contains(githubUser.Login))
                     {
                         await ws.CloseAsync(WebSocketCloseStatus.InternalServerError, "Unauthorized", CancellationToken.None);

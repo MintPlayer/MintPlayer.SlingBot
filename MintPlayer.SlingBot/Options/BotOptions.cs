@@ -8,4 +8,5 @@ public sealed class BotOptions
     public string? WebhookSecret { get; set; }
     public string? PrivateKey { get; set; }
     public string? PrivateKeyPath { get; set; }
+    public string? DevSmeeChannelUrl { get; set; }
 }

@@ -16,10 +16,13 @@ builder.Services
         options.WebhookSecret = builder.Configuration["GithubApp:WebhookSecret"];
         options.PrivateKey = builder.Configuration["GithubApp:PrivateKey"];
         options.PrivateKeyPath = builder.Configuration["GithubApp:PrivateKeyPath"];
+
+        options.DevSmeeChannelUrl = builder.Configuration["WebhookProxy:DevSmeeChannelUrl"];
     });
 
-// Add services to the container.
+// Github app => Webhook URL = https://slingbot.mintplayer.com/api/github/webhooks
 
+// Add services to the container.
 builder.Services.AddControllers();
 builder.Services.AddHealthChecks();
 builder.Services.AddLogging(options => options.AddConsole());

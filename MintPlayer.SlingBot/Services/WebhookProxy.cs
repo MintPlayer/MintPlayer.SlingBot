@@ -8,7 +8,7 @@ using MintPlayer.SlingBot.Extensions;
 
 namespace MintPlayer.SlingBot.Services;
 
-internal class WebhookProxy : IHostedService
+internal class WebhookProxy : BackgroundService
 {
     private readonly IConfiguration configuration;
     private readonly IServiceProvider services;
@@ -18,7 +18,7 @@ internal class WebhookProxy : IHostedService
         this.services = services;
     }
 
-    public async Task StartAsync(CancellationToken cancellationToken)
+    protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
         var webhookProxyUrl = configuration["WebhookProxy:ProductionWebsocketUrl"];
         var githubToken = configuration["github:token"];
@@ -60,10 +60,5 @@ internal class WebhookProxy : IHostedService
                 }
             });
         }
-    }
-
-    public Task StopAsync(CancellationToken cancellationToken)
-    {
-        return Task.CompletedTask;
     }
 }

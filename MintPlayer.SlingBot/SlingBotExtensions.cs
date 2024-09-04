@@ -30,7 +30,10 @@ public static class SlingBotExtensions
         }
 
         if (environment.IsDevelopment())
+        {
+            services.AddHostedService<SmeeService>();
             services.AddHostedService<WebhookProxy>();
+        }
 
         return services
             .AddScoped<Abstractions.IAuthenticatedGithubService, AuthenticatedGithubService>()

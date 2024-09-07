@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.SlingBot", "Mint
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.SlingBot.Abstractions", "MintPlayer.SlingBot.Abstractions\MintPlayer.SlingBot.Abstractions.csproj", "{61B13378-B4CA-4B4D-A0B6-2573A6F0F857}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Dotnet.SocketExtensions", "MintPlayer.Dotnet.SocketExtensions\MintPlayer.Dotnet.SocketExtensions.csproj", "{8C57B57F-2712-4694-86B6-95814B52EDDB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MintPlayer.Dotnet.SocketExtensions", "MintPlayer.Dotnet.SocketExtensions\MintPlayer.Dotnet.SocketExtensions.csproj", "{8C57B57F-2712-4694-86B6-95814B52EDDB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.DiffParser", "MintPlayer.DiffParser\MintPlayer.DiffParser.csproj", "{277A500E-E5D0-4434-9107-836ABAF145C6}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.DiffParser.Data", "MintPlayer.DiffParser.Data\MintPlayer.DiffParser.Data.csproj", "{45169E96-0436-4589-AABB-F470DF247581}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.DiffParser.Abstractions", "MintPlayer.DiffParser.Abstractions\MintPlayer.DiffParser.Abstractions.csproj", "{92002F5E-08F2-4F1E-B8B1-253ED515DFD0}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{8C57B57F-2712-4694-86B6-95814B52EDDB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8C57B57F-2712-4694-86B6-95814B52EDDB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8C57B57F-2712-4694-86B6-95814B52EDDB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{277A500E-E5D0-4434-9107-836ABAF145C6}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{277A500E-E5D0-4434-9107-836ABAF145C6}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{277A500E-E5D0-4434-9107-836ABAF145C6}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{277A500E-E5D0-4434-9107-836ABAF145C6}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45169E96-0436-4589-AABB-F470DF247581}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45169E96-0436-4589-AABB-F470DF247581}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45169E96-0436-4589-AABB-F470DF247581}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45169E96-0436-4589-AABB-F470DF247581}.Release|Any CPU.Build.0 = Release|Any CPU
+		{92002F5E-08F2-4F1E-B8B1-253ED515DFD0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{92002F5E-08F2-4F1E-B8B1-253ED515DFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{92002F5E-08F2-4F1E-B8B1-253ED515DFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{92002F5E-08F2-4F1E-B8B1-253ED515DFD0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

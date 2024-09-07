@@ -30,8 +30,14 @@ public abstract class SlingBotWebhookEventProcessor : Octokit.Webhooks.WebhookEv
     // We can store whether it's correct.
     private bool verifiedSignature = false;
 
+    /// <summary>Determines whether a webhook should be downstreamed to a development machine.s</summary>
+    public virtual Task<bool> ShouldDownstreamWebhookAsync(WebhookEvent webhook) => Task.FromResult(true);
+
     public override async Task ProcessWebhookAsync(IDictionary<string, StringValues> headers, string body)
     {
+        ArgumentNullException.ThrowIfNull(headers);
+        ArgumentNullException.ThrowIfNull(body);
+
         // This base method is using a case-sensitive Dictionary.
         // This means that headers can't be found in most situations.
         // We override the method, and create a case-insensitive Dictionary instead.
@@ -51,12 +57,19 @@ public abstract class SlingBotWebhookEventProcessor : Octokit.Webhooks.WebhookEv
             }
         }
 
-        if (environment.IsProduction())
+        // Used the contents of base.ProcessWebhookAsync(IDictionary<string, StringValues>, string) here
+        var webhookHeaders = WebhookHeaders.Parse(caseInsensitiveHeaders); // Let's not use the default headers dictionary here
+        var webhookEvent = this.DeserializeWebhookEvent(webhookHeaders, body);
+
+
+        var shouldSendToClients = await ShouldDownstreamWebhookAsync(webhookEvent);
+        if (environment.IsProduction() && shouldSendToClients)
         {
             using var scope = serviceProvider.CreateScope();
             var devSocketService = scope.ServiceProvider.GetRequiredService<IDevSocketService>();
             await devSocketService.SendToClients(caseInsensitiveHeaders, body);
         }
-        await base.ProcessWebhookAsync(caseInsensitiveHeaders, body);
+
+        await this.ProcessWebhookAsync(webhookHeaders, webhookEvent);
     }
 }

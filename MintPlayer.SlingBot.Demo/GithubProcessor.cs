@@ -37,4 +37,9 @@ public class GithubProcessor : SlingBotWebhookEventProcessor
         var githubClient = await authenticatedGithubService.GetAuthenticatedGithubClient(pullRequestEvent.Installation!.Id);
         await githubClient.PullRequest.ReviewComment.Create(pullRequestEvent.Repository.Id, (int)pullRequestEvent.PullRequest.Number, new PullRequestReviewCommentCreate("Test", pullRequestEvent.PullRequest.Head.Sha, "Test.cs", 5));
     }
+
+    public override async Task ProcessWebhookAsync(IDictionary<string, StringValues> headers, string body)
+    {
+        await base.ProcessWebhookAsync(headers, body);
+    }
 }

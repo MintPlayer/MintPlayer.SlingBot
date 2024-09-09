@@ -1,11 +1,13 @@
 ﻿using MintPlayer.DiffParser.Data.Enums;
+using System.Runtime.CompilerServices;
 
+[assembly: InternalsVisibleTo("MintPlayer.DiffParser")]
 namespace MintPlayer.DiffParser.Data;
 
 public class LineDiff
 {
-    public ELineDiffStatus Status { get; internal set; }
-    public string? Line { get; internal set; }
+    public ELineDiffStatus Status { get; init; }
+    public string? Line { get; init; }
     public int? LeftIndex { get; internal set; }
     public int? RightIndex { get; internal set; }
 

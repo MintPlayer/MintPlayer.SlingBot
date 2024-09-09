@@ -4,10 +4,13 @@ namespace MintPlayer.DiffParser.Data;
 
 public class LineDiff
 {
-    public ELineDiffStatus Status { get; set; }
-    public string? Line { get; set; }
-    public int? LeftIndex { get; set; }
-    public int? RightIndex { get; set; }
+    public ELineDiffStatus Status { get; internal set; }
+    public string? Line { get; internal set; }
+    public int? LeftIndex { get; internal set; }
+    public int? RightIndex { get; internal set; }
+
+    public bool CanCommentLeft => Status.OneOf([ELineDiffStatus.Unchanged, ELineDiffStatus.Removed]);
+    public bool CanCommentRight => Status.OneOf([ELineDiffStatus.Added]);
 
     private string Num(int? val) => val == null ? string.Empty : val.ToString()!;
 

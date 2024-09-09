@@ -24,4 +24,8 @@
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
+	<ItemGroup>
+	  <PackageReference Include="MintPlayer.EnumerableExtensions" Version="8.3.0" />
+	</ItemGroup>
+
 </Project>

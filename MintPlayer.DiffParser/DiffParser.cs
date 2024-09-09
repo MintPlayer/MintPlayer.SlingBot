@@ -47,7 +47,25 @@ internal class DiffParser : IDiffParser
                 },
                 Lines = item.Lines
             })
+            //.Select((item, index) => new Chunk
+            //{
+            //    Header = item.Header,
+            //    HeaderInfo = item.HeaderInfo,
+            //    Lines = item.Lines.Select((l, lIndex) => new LineDiff
+            //    {
+            //        Line = l.Line,
+            //        Status = l.Status,
+            //        LeftIndex = item.HeaderInfo.Left.Start + lIndex
+            //    }).ToArray(),
+            //})
             .ToArray();
+
+
+        foreach (var chunk in result)
+        {
+
+        }
+
 
         return new Diff
         {

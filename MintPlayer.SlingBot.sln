@@ -17,6 +17,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.DiffParser.Data"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.DiffParser.Abstractions", "MintPlayer.DiffParser.Abstractions\MintPlayer.DiffParser.Abstractions.csproj", "{92002F5E-08F2-4F1E-B8B1-253ED515DFD0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.DiffParser.Test", "MintPlayer.DiffParser.Test\MintPlayer.DiffParser.Test.csproj", "{949DCA11-C3E5-43C6-AF5A-C3AC1FBF072B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +53,10 @@ Global
 		{92002F5E-08F2-4F1E-B8B1-253ED515DFD0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{92002F5E-08F2-4F1E-B8B1-253ED515DFD0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{92002F5E-08F2-4F1E-B8B1-253ED515DFD0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{949DCA11-C3E5-43C6-AF5A-C3AC1FBF072B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{949DCA11-C3E5-43C6-AF5A-C3AC1FBF072B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{949DCA11-C3E5-43C6-AF5A-C3AC1FBF072B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{949DCA11-C3E5-43C6-AF5A-C3AC1FBF072B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

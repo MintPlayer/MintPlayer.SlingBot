@@ -63,9 +63,19 @@ internal class DiffParser : IDiffParser
 
         foreach (var chunk in result)
         {
-
+            int leftIndex = 0, rightIndex = 0;
+            foreach (var line in chunk.Lines!)
+            {
+                if (line.Status.OneOf([ELineDiffStatus.Removed, ELineDiffStatus.Unchanged]))
+                {
+                    line.LeftIndex = chunk.HeaderInfo.Left.Start + leftIndex++;
+                }
+                if (line.Status.OneOf([ELineDiffStatus.Added, ELineDiffStatus.Unchanged]))
+                {
+                    line.RightIndex = chunk.HeaderInfo.Right.Start + rightIndex++;
+                }
+            }
         }
-
 
         return new Diff
         {

@@ -2,11 +2,14 @@
 
 namespace MintPlayer.Octokit.Extensions.Enums;
 
-public enum ESubjectType
+public enum EPermission
 {
     [Parameter(Value = null)]
-    Line,
+    None,
 
-    [Parameter(Value = "file")]
-    File,
+    [Parameter(Value = "read")]
+    Read,
+
+    [Parameter(Value = "write")]
+    Write,
 }

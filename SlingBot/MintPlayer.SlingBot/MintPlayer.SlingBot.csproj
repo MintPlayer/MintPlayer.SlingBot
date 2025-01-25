@@ -31,6 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <ProjectReference Include="..\..\Octokit\MintPlayer.Octokit.Extensions\MintPlayer.Octokit.Extensions.csproj" />
 	  <ProjectReference Include="..\MintPlayer.SlingBot.Abstractions\MintPlayer.SlingBot.Abstractions.csproj" />
 	</ItemGroup>
 

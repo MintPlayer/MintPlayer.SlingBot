@@ -1,10 +1,12 @@
-﻿namespace MintPlayer.Octokit.Extensions.Enums;
+﻿using ParameterAttribute = Octokit.Internal.ParameterAttribute;
+
+namespace MintPlayer.Octokit.Extensions.Enums;
 
 public enum EPullRequestReviewCommentSide
 {
-    [global::Octokit.Internal.Parameter(Value = "LEFT")]
+    [Parameter(Value = "LEFT")]
     Left,
 
-    [global::Octokit.Internal.Parameter(Value = "RIGHT")]
+    [Parameter(Value = "RIGHT")]
     Right,
 }

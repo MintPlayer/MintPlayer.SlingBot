@@ -1,5 +1,6 @@
 ﻿using MintPlayer.Octokit.Extensions.Enums;
 using Octokit;
+using ParameterAttribute = Octokit.Internal.ParameterAttribute;
 
 namespace MintPlayer.Octokit.Extensions.Requests;
 
@@ -19,21 +20,21 @@ public sealed class PullRequestReviewCommentOnFileCreate : RequestParameters
     /// <summary>
     /// The text of the comment.
     /// </summary>
-    [global::Octokit.Internal.Parameter(Key = "body")]
+    [Parameter(Key = "body")]
     public string Body { get; private set; }
 
     /// <summary>
     /// The SHA of the commit to comment on.
     /// </summary>
-    [global::Octokit.Internal.Parameter(Key = "commit_id")]
+    [Parameter(Key = "commit_id")]
     public string CommitId { get; private set; }
 
     /// <summary>
     /// The relative path of the file to comment on.
     /// </summary>
-    [global::Octokit.Internal.Parameter(Key = "path")]
+    [Parameter(Key = "path")]
     public string Path { get; private set; }
 
-    [global::Octokit.Internal.Parameter(Key = "subject_type")]
+    [Parameter(Key = "subject_type")]
     public ESubjectType SubjectType => ESubjectType.File;
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Options;
 using Microsoft.Extensions.Primitives;
+using MintPlayer.Octokit.Extensions.Enums;
 using MintPlayer.SlingBot.Abstractions;
 using MintPlayer.SlingBot.Options;
 using Octokit;
@@ -27,14 +28,18 @@ public class GithubProcessor : SlingBotWebhookEventProcessor
 
     protected override async Task ProcessIssuesWebhookAsync(WebhookHeaders headers, IssuesEvent issuesEvent, IssuesAction action)
     {
-        var githubClient = await authenticatedGithubService.GetAuthenticatedGithubClient(issuesEvent.Installation!.Id);
+        //var githubClient = await authenticatedGithubService.GetInstallationClient(issuesEvent.Installation!.Id);
+        var githubClient = await authenticatedGithubService.GetInstallationClient(issuesEvent.Installation!.Id, new([issuesEvent.Repository!.Id], new()
+        {
+            [EGithubPermission.Issues] = EPermission.Write,
+        }));
         await githubClient.Issue.Comment.Create(issuesEvent.Repository!.Id, (int)issuesEvent.Issue.Number, "Thanks for creating an issue");
     }
 
     protected override async Task ProcessPullRequestWebhookAsync(WebhookHeaders headers, PullRequestEvent pullRequestEvent, PullRequestAction action)
     {
         await base.ProcessPullRequestWebhookAsync(headers, pullRequestEvent, action);
-        var githubClient = await authenticatedGithubService.GetAuthenticatedGithubClient(pullRequestEvent.Installation!.Id);
+        var githubClient = await authenticatedGithubService.GetInstallationClient(pullRequestEvent.Installation!.Id);
         await githubClient.PullRequest.ReviewComment.Create(pullRequestEvent.Repository.Id, (int)pullRequestEvent.PullRequest.Number, new PullRequestReviewCommentCreate("Test", pullRequestEvent.PullRequest.Head.Sha, "Test.cs", 5));
     }
 }

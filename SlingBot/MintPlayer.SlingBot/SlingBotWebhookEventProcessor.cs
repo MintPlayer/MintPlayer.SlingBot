@@ -9,7 +9,7 @@ using Octokit.Webhooks;
 
 namespace MintPlayer.SlingBot;
 
-public abstract class SlingBotWebhookEventProcessor : Octokit.Webhooks.WebhookEventProcessor
+public abstract class SlingBotWebhookEventProcessor : global::Octokit.Webhooks.WebhookEventProcessor
 {
     private readonly IHostEnvironment environment;
     private readonly IServiceProvider serviceProvider;

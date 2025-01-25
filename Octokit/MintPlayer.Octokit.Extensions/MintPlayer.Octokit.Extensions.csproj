@@ -13,25 +13,25 @@
 		<Version>8.1.0</Version>
 		<Authors>Pieterjan De Clippel</Authors>
 		<Company>MintPlayer</Company>
-		<Description>Build a Github Bot</Description>
-		<PackageProjectUrl>https://github.com/MintPlayer/MintPlayer.SlingBot/MintPlayer.SlingBot</PackageProjectUrl>
+		<Description>Missing methods for Octokit.NET</Description>
+		<PackageProjectUrl>https://github.com/MintPlayer/MintPlayer.SlingBot/Octokit/MintPlayer.Octokit.Extensions</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/MintPlayer/MintPlayer.SlingBot</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
-		<PackageId>MintPlayer.SlingBot</PackageId>
-		<PackageTags>SlingBot, GitHub apps</PackageTags>
+		<PackageId>MintPlayer.Octokit.Extensions</PackageId>
+		<PackageTags>SlingBot, GitHub apps, Octokit</PackageTags>
 		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
 		<IncludeSymbols>true</IncludeSymbols>
 		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-	  <PackageReference Include="Octokit.Webhooks.AspNetCore" Version="2.2.3" />
-	  <PackageReference Include="Smee.IO.Client" Version="1.0.16" />
+		<PackageReference Include="Octokit" Version="14.0.0" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\MintPlayer.SlingBot.Abstractions\MintPlayer.SlingBot.Abstractions.csproj" />
+		<Compile Update="**\*.*.cs">
+			<DependentUpon>$([System.Text.RegularExpressions.Regex]::Replace(%(Filename), '(?:.(?![.]))+$', %(Extension)))</DependentUpon>
+		</Compile>
 	</ItemGroup>
 
 </Project>

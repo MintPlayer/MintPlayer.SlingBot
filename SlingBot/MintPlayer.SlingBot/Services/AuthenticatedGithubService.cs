@@ -1,4 +1,5 @@
 ﻿using Microsoft.Extensions.Options;
+using MintPlayer.Octokit.Extensions.Requests;
 using MintPlayer.SlingBot.Options;
 using Newtonsoft.Json;
 using Octokit;
@@ -17,7 +18,9 @@ internal class AuthenticatedGithubService : Abstractions.IAuthenticatedGithubSer
     }
     #endregion
 
-    public async Task<IGitHubClient> GetAuthenticatedGithubClient(long installationId)
+    private readonly ProductHeaderValue header = new("Test", "0.0.1");
+    
+    public Task<IGitHubClient> GetAppClient()
     {
         var privateKey = botOptions.Value.PrivateKey;
         if (string.IsNullOrEmpty(privateKey))
@@ -26,14 +29,30 @@ internal class AuthenticatedGithubService : Abstractions.IAuthenticatedGithubSer
         }
 
         var jwt = GetJwt(botOptions.Value.ClientId!, privateKey);
-
-        var header = new ProductHeaderValue("Test", "0.0.1");
         var ghclient = new GitHubClient(header)
         {
             Credentials = new Credentials(jwt, AuthenticationType.Bearer)
         };
+        return Task.FromResult<IGitHubClient>(ghclient);
+    }
 
-        var response = await ghclient.GitHubApps.CreateInstallationToken(installationId);
+    public async Task<IGitHubClient> GetInstallationClient(long installationId)
+    {
+        var appClient = await GetAppClient();
+
+        var response = await appClient.GitHubApps.CreateInstallationToken(installationId);
+        var repoClient = new GitHubClient(header)
+        {
+            Credentials = new Credentials(response.Token)
+        };
+        return repoClient;
+    }
+
+    public async Task<IGitHubClient> GetInstallationClient(long installationId, CreateInstallationTokenPayload reposAndPermissions)
+    {
+        var appClient = await GetAppClient();
+
+        var response = await appClient.GitHubApps.CreateInstallationToken(installationId, reposAndPermissions);
         var repoClient = new GitHubClient(header)
         {
             Credentials = new Credentials(response.Token)

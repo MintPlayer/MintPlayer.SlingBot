@@ -30,7 +30,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <ProjectReference Include="..\MintPlayer.Dotnet.SocketExtensions\MintPlayer.Dotnet.SocketExtensions.csproj" />
+	  <ProjectReference Include="..\..\MintPlayer.Dotnet.SocketExtensions\MintPlayer.Dotnet.SocketExtensions.csproj" />
+	  <ProjectReference Include="..\..\Octokit\MintPlayer.Octokit.Extensions\MintPlayer.Octokit.Extensions.csproj" />
 	</ItemGroup>
 
 </Project>

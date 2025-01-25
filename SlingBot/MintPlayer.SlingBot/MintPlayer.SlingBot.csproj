@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net8.0</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<Nullable>enable</Nullable>
+		<OutputType>Library</OutputType>
+		<PublishAot>true</PublishAot>
+	</PropertyGroup>
+
+	<PropertyGroup>
+		<IsPackable>true</IsPackable>
+		<Version>8.1.0</Version>
+		<Authors>Pieterjan De Clippel</Authors>
+		<Company>MintPlayer</Company>
+		<Description>Build a Github Bot</Description>
+		<PackageProjectUrl>https://github.com/MintPlayer/MintPlayer.SlingBot/MintPlayer.SlingBot</PackageProjectUrl>
+		<RepositoryUrl>https://github.com/MintPlayer/MintPlayer.SlingBot</RepositoryUrl>
+		<RepositoryType>git</RepositoryType>
+		<PackageId>MintPlayer.SlingBot</PackageId>
+		<PackageTags>SlingBot, GitHub apps</PackageTags>
+		<PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
+		<IncludeSymbols>true</IncludeSymbols>
+		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+	  <PackageReference Include="Octokit.Webhooks.AspNetCore" Version="2.2.3" />
+	  <PackageReference Include="Smee.IO.Client" Version="1.0.16" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <ProjectReference Include="..\..\Octokit\MintPlayer.Octokit.Extensions\MintPlayer.Octokit.Extensions.csproj" />
+	  <ProjectReference Include="..\MintPlayer.SlingBot.Abstractions\MintPlayer.SlingBot.Abstractions.csproj" />
+	</ItemGroup>
+
+</Project>

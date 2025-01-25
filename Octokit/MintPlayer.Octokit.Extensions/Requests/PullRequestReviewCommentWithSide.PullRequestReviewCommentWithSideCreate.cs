@@ -1,4 +1,7 @@
-﻿namespace MintPlayer.Octokit.Extensions.Requests;
+﻿using MintPlayer.Octokit.Extensions.Enums;
+using Octokit;
+
+namespace MintPlayer.Octokit.Extensions.Requests;
 
 public class PullRequestReviewCommentWithSideCreate : RequestParameters
 {

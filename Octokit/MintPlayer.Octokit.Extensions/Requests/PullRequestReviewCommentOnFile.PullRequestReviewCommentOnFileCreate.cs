@@ -1,4 +1,5 @@
-﻿using Octokit;
+﻿using MintPlayer.Octokit.Extensions.Enums;
+using Octokit;
 
 namespace MintPlayer.Octokit.Extensions.Requests;
 

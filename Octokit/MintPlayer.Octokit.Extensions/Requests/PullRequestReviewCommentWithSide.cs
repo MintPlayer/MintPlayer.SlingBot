@@ -1,4 +1,5 @@
-﻿using Octokit;
+﻿using MintPlayer.Octokit.Extensions.Enums;
+using Octokit;
 using System.Diagnostics;
 
 namespace MintPlayer.Octokit.Extensions.Requests;
@@ -69,7 +70,7 @@ public class PullRequestReviewCommentWithSide
     /// <summary>
     /// Left or Right
     /// </summary>
-    [Octokit.Internal.Parameter(Key = "side")]
+    [global::Octokit.Internal.Parameter(Key = "side")]
     public EPullRequestReviewCommentSide Side { get; private set; }
 
     /// <summary>

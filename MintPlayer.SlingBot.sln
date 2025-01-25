@@ -23,6 +23,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.SlingBot", "Slin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.SlingBot.Demo", "SlingBot\MintPlayer.SlingBot.Demo\MintPlayer.SlingBot.Demo.csproj", "{E29BD8F5-FF18-4F73-A674-9F6459C95FE2}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Octokit", "Octokit", "{8CAC6D5C-38C7-459A-86F6-7BD1C2C56DD9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MintPlayer.Octokit.Extensions", "Octokit\MintPlayer.Octokit.Extensions\MintPlayer.Octokit.Extensions.csproj", "{EE09A282-A09A-41ED-9478-4742299AF51D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +65,10 @@ Global
 		{E29BD8F5-FF18-4F73-A674-9F6459C95FE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E29BD8F5-FF18-4F73-A674-9F6459C95FE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E29BD8F5-FF18-4F73-A674-9F6459C95FE2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EE09A282-A09A-41ED-9478-4742299AF51D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EE09A282-A09A-41ED-9478-4742299AF51D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EE09A282-A09A-41ED-9478-4742299AF51D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EE09A282-A09A-41ED-9478-4742299AF51D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,6 +81,7 @@ Global
 		{14D6AAB9-5BC5-4C61-8687-C397861F7615} = {FF8732D2-1C7A-4CDB-8F06-BC0E518B537E}
 		{B564987B-C4CC-47BF-96F7-AFE60DC62A1E} = {FF8732D2-1C7A-4CDB-8F06-BC0E518B537E}
 		{E29BD8F5-FF18-4F73-A674-9F6459C95FE2} = {FF8732D2-1C7A-4CDB-8F06-BC0E518B537E}
+		{EE09A282-A09A-41ED-9478-4742299AF51D} = {8CAC6D5C-38C7-459A-86F6-7BD1C2C56DD9}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {B0E04887-2270-4BFA-B131-240A7AA05ED5}
